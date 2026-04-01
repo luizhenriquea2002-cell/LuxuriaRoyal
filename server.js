@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// 🔥 ISSO AQUI É O MAIS IMPORTANTE
+// 🔥 SERVIR FRONT (HTML, CSS, JS)
 app.use(express.static(__dirname));
 
 // LOGIN
@@ -22,7 +22,7 @@ app.post("/login", (req, res) => {
   res.status(401).json({ error: "Login inválido" });
 });
 
-// 🔥 ROTA PRINCIPAL (SEM ISSO FICA BRANCO)
+// 🔥 ROTA PRINCIPAL
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
@@ -32,6 +32,8 @@ app.get("/dashboard", (req, res) => {
   res.sendFile(__dirname + "/dashboard.html");
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log("Servidor rodando 🚀");
+// 🚀 START DO SERVIDOR (FALTAVA ISSO!)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log("Servidor rodando na porta " + PORT);
 });

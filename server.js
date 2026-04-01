@@ -6,6 +6,8 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+// 🔥 ISSO AQUI É O MAIS IMPORTANTE
 app.use(express.static(__dirname));
 
 // LOGIN
@@ -20,7 +22,7 @@ app.post("/login", (req, res) => {
   res.status(401).json({ error: "Login inválido" });
 });
 
-// ROOT (ESSENCIAL)
+// 🔥 ROTA PRINCIPAL (SEM ISSO FICA BRANCO)
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
@@ -31,5 +33,5 @@ app.get("/dashboard", (req, res) => {
 });
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log("Rodando 🚀");
+  console.log("Servidor rodando 🚀");
 });

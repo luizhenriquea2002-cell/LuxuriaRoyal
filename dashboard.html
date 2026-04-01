@@ -1,13 +1,54 @@
-<h1>🎰 LuxuriaRoyal</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cassino</title>
+</head>
+<body style="background:black; color:gold; text-align:center;">
 
-<div class="slot">
-  <div id="r1" class="reel">💎</div>
-  <div id="r2" class="reel">💎</div>
-  <div id="r3" class="reel">💎</div>
+<h1>🎰 Cassino</h1>
+
+<div>
+  <span id="r1">💎</span>
+  <span id="r2">💎</span>
+  <span id="r3">💎</span>
 </div>
 
-<button onclick="girarSlot()">GIRAR</button>
+<br>
 
-<div id="dados"></div>
+<button onclick="girar()">GIRAR</button>
 
-<script src="game.js"></script>
+<h2 id="saldo"></h2>
+
+<script>
+let saldo = 1000;
+
+function atualizar(){
+  document.getElementById("saldo").innerText = "Saldo: " + saldo;
+}
+
+function girar(){
+  const s = ["💎","🔥","💰","🍀"];
+
+  let a = s[Math.floor(Math.random()*4)];
+  let b = s[Math.floor(Math.random()*4)];
+  let c = s[Math.floor(Math.random()*4)];
+
+  document.getElementById("r1").innerText = a;
+  document.getElementById("r2").innerText = b;
+  document.getElementById("r3").innerText = c;
+
+  saldo -= 50;
+
+  if(a===b && b===c){
+    saldo += 500;
+    alert("GANHOU!");
+  }
+
+  atualizar();
+}
+
+atualizar();
+</script>
+
+</body>
+</html>

@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LuxuriaPlay</title>
+  <title>LuxuriaRoyal</title>
 </head>
-<body style="background:black;color:white;text-align:center">
+<body style="background:black; color:white; text-align:center;">
 
-<h1>🔥 FUNCIONANDO 🔥</h1>
+<h1>🎰 LuxuriaRoyal</h1>
+
+<input id="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Senha"><br><br>
+
+<button onclick="login()">ENTRAR</button>
+
+<script>
+async function login() {
+  const res = await fetch("/login", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value
+    })
+  });
+
+  const data = await res.json();
+
+  if(data.token){
+    localStorage.setItem("token", data.token);
+    window.location = "/dashboard";
+  } else {
+    alert("Erro no login");
+  }
+}
+</script>
 
 </body>
 </html>

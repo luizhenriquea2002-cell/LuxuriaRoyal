@@ -1,34 +1,16 @@
-let usersData = {};
+function auth(req, res, next) {
+  const token = req.headers.authorization;
 
-app.post("/play", auth, (req, res) => {
-  const email = req.userEmail;
+  if (!token) return res.sendStatus(401);
 
-  if (!usersData[email]) {
-    usersData[email] = { saldo: 1000 };
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // 🔥 ESSA LINHA É A MAIS IMPORTANTE
+    req.userEmail = decoded.email;
+
+    next();
+  } catch {
+    res.sendStatus(403);
   }
-
-  const chance = Math.random();
-  let win = false;
-  let premio = 0;
-
-  if (chance > 0.9) {
-    premio = 300;
-    win = true;
-  } else {
-    premio = -50;
-  }
-
-  usersData[email].saldo += premio;
-
-  res.json({ win, saldo: usersData[email].saldo });
-});
-
-app.get("/saldo", auth, (req, res) => {
-  const email = req.userEmail;
-
-  if (!usersData[email]) {
-    usersData[email] = { saldo: 1000 };
-  }
-
-  res.json({ saldo: usersData[email].saldo });
-});
+}
